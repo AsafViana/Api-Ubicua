@@ -1,0 +1,6 @@
+@Api_Ubicua_HostAddress = http://localhost:5211
+
+GET {{Api_Ubicua_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
