@@ -14,6 +14,17 @@ namespace Api_Ubicua
 
         public void ConfigureServices(IServiceCollection service)
         {
+            service.AddCors(options =>
+            {
+                options.AddPolicy("AllowLocalhost5173",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:5173")
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
+
             string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
             service.AddDbContextPool<Contexto>(options => 
             options.UseMySql(mySqlConnection, 
@@ -28,9 +39,12 @@ namespace Api_Ubicua
         {
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("AllowLocalhost5173");
 
             app.UseHttpsRedirection();
 

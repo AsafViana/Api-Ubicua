@@ -25,6 +25,7 @@ namespace Api_Ubicua.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "https://localhost:7268");
             return await _context.Usuarios.ToListAsync();
         }
 
